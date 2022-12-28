@@ -43,4 +43,24 @@ public class KonuEndpoints {
         repo.save(konu);
         return "Başarı ile kaydedildi";
     }
+
+    //delete
+    @DELETE
+    @Path(value = "deleteById/{id}")
+    public String deleteById(@PathParam(value = "id") Integer id) {
+        // localhost:9090/FirstRestfulService/konu/deleteById/1
+        if (repo.deleteById(id)) {
+            return "Başarı ile silindi.";
+        } else {
+            return "Başarı ile silinemedi.";
+        }
+    }
+
+    //header
+    @GET
+    @Path(value = "getByIdHeader")
+    @Produces(value = MediaType.APPLICATION_JSON)
+    public Konu getByIdHeader(@HeaderParam(value = "id") Integer id) {
+        return repo.getById(id);
+    }
 }

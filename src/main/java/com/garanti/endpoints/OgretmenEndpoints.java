@@ -20,8 +20,7 @@ public class OgretmenEndpoints {
     @GET
     @Path(value = "getAll")
     @Produces(value = MediaType.APPLICATION_JSON)
-    public ArrayList<Ogretmen> getAll()
-    {
+    public ArrayList<Ogretmen> getAll() {
         // localhost:9090/FirstRestfulService/ogretmen/getAll
         return repo.getAll();
     }
@@ -30,8 +29,7 @@ public class OgretmenEndpoints {
     @GET
     @Path(value = "getById")
     @Produces(value = MediaType.APPLICATION_JSON)
-    public Ogretmen getByIdQueryParam(@QueryParam(value = "id") Integer id)
-    {
+    public Ogretmen getByIdQueryParam(@QueryParam(value = "id") Integer id) {
         // localhost:9090/FirstRestfulService/ogretmen/getById?id=1
         return repo.getById(id);
     }
@@ -49,10 +47,29 @@ public class OgretmenEndpoints {
     @POST
     @Path(value = "save")
     @Consumes(value = MediaType.APPLICATION_JSON)
-    public String save(Ogretmen ogretmen)
-    {
+    public String save(Ogretmen ogretmen) {
         // localhost:9090/FirstRestfulService/ogretmen/save
         repo.save(ogretmen);
         return "Başarı ile kaydedildi";
+    }
+
+    //delete
+    @DELETE
+    @Path(value = "deleteById/{id}")
+    public String deleteById(@PathParam(value = "id") Integer id) {
+        // localhost:9090/FirstRestfulService/ogretmen/deleteById/1
+        if (repo.deleteById(id)) {
+            return "Başarı ile silindi.";
+        } else {
+            return "Başarı ile silinemedi.";
+        }
+    }
+
+    //header
+    @GET
+    @Path(value = "getByIdHeader")
+    @Produces(value = MediaType.APPLICATION_JSON)
+    public Ogretmen getByIdHeader(@HeaderParam(value = "id") Integer id) {
+        return repo.getById(id);
     }
 }
